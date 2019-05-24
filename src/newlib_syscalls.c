@@ -8,11 +8,7 @@ extern uint8_t __heap_base__[];
 extern uint8_t __heap_end__[];
 static uint8_t *_cur_brk = __heap_base__;
 
-#define UART0DR ((volatile uint32_t*)0x4000C000)
-static void _putc(char c)
-{
-    *UART0DR = c;
-}
+extern void __putc(char c);
 
 int _read_r(struct _reent *r, int file, char * ptr, int len)
 {
@@ -47,9 +43,20 @@ int _write_r(struct _reent *r, int file, char * ptr, int len)
     }
 
     for ( ; len > 0; len--, ptr++) {
-        _putc(*ptr);
+        __putc(*ptr);
     }
     return len;
+}
+
+int _open_r(struct _reent *r, const char* file, int flags, int mode)
+{
+    (void)r;
+    (void)file;
+    (void)flags;
+    (void)mode;
+    __errno_r(r) = ENOMEM;
+
+    return 0;
 }
 
 int _close_r(struct _reent *r, int file)

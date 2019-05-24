@@ -1,8 +1,8 @@
 
 /** Call static constructors */
-void __libc_init_array()
+void __libc_init_array(void)
 {
-    typedef void (*funcp_t)();
+    typedef void (*funcp_t)(void);
     extern funcp_t __preinit_array_start[];
     extern funcp_t __preinit_array_end[];
     extern funcp_t __init_array_start[];
