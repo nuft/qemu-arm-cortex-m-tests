@@ -36,11 +36,24 @@ typedef struct
 #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Base Address */
 #define SCB                 ((SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct */
 
+void reset(void)
+{
+    SCB->AIRCR = (0x5FA << SCB_AIRCR_VECTKEY_Pos) | SCB_AIRCR_SYSRESETREQ_Msk;
+}
+
+
+static int val = 42;
 
 int main(void)
 {
     print("hello world\n");
+    printf("val -> %d\n", val);
+    print("hello world\n");
+    printf("val -> %d\n", val);
+    void *p = malloc(4);
+    printf("malloc(4) -> %p\n", p);
+    print("hello world\n");
 
-    SCB->AIRCR = (0x5FA << SCB_AIRCR_VECTKEY_Pos) | SCB_AIRCR_SYSRESETREQ_Msk;
+    reset();
     return 0;
 }
