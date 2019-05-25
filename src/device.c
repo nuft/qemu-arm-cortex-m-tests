@@ -13,12 +13,13 @@ void print(const char* c)
     }
 }
 
-#define SCB_AIRCR_RESET ((0x5FAUL << 16) | (1UL << 2))
-#define SCB_AIRCR       (*(volatile uint32_t *)(0xE000E000UL + 0x0D00UL + 0x00CUL))
+#define SCB_AIRCR_SYSRESETREQ   (1UL << 2)
+#define SCB_AIRCR_VECTKEY       (0x5FAUL << 16)
+#define SCB_AIRCR               (*(volatile uint32_t *)0xE000ED0CUL)
 void reset(void)
 {
     print("RESET\n");
-    SCB_AIRCR = SCB_AIRCR_RESET;
+    SCB_AIRCR = SCB_AIRCR_VECTKEY | SCB_AIRCR_SYSRESETREQ;
 }
 
 void panic(const char *msg)

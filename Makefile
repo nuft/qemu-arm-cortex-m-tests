@@ -3,7 +3,7 @@ MCUOPT = -mcpu=cortex-m3 -mthumb
 # MCUOPT += -mfloat-abi=soft -mfpu=fpv5-sp-d16
 
 AOPS = --warn --fatal-warnings $(MCUOPT)
-OPT = -Wall -Wextra -Wundef -O0 -ggdb
+OPT = -Wall -Wextra -Wundef -Os -ggdb
 OPT += -nostartfiles -ffreestanding
 OPT += -fomit-frame-pointer -falign-functions=16 -ffunction-sections -fdata-sections -fno-common
 OPT += $(MCUOPT)
@@ -18,7 +18,7 @@ CPPOPT += -fno-use-cxa-atexit
 CPPOPT += -fno-exceptions -fno-unwind-tables -fno-threadsafe-statics
 
 # C source list
-CSRC = src/main.c src/device.c src/crt1.c src/newlib_syscalls.c
+CSRC = src/main.c src/device.c src/newlib_syscalls.c
 CPPSRC = src/test.cpp src/stubs.cpp
 
 # assembly source list

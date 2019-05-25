@@ -60,6 +60,9 @@ LoopFillZerobss:
     bl __libc_init_array
     /* Call the application's entry point.*/
     bl  main
+    /* Call static destructors */
+    bl __libc_fini_array
+    bl _exit
     b   hang
     .size  Reset_Handler, .-Reset_Handler
 

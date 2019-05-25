@@ -99,8 +99,21 @@ int _isatty_r(struct _reent *r, int fd)
     return 1;
 }
 
+/* Called by __libc_init_array() */
+void _init(void)
+{
+    /* empty */
+}
+
 /* Called by __libc_fini_array() */
 void _fini(void)
 {
     /* empty */
+}
+
+void _exit(int code)
+{
+    (void)code;
+    reset();
+    while(1);
 }
